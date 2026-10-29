@@ -35,9 +35,10 @@ export function topicState(profile,topic,today=dayKey(new Date(),profile.setting
   return {label:'Изучается',key:'learning',reason:`Нужно 3 разных задания и 2 дня уверенных решений. Сейчас: ${ids.size} заданий, ${days.size} дней`};
 }
 export function subjectStats(profile,subjectId,questions) {
-  const attempts=profile.attempts.filter(a=>a.subjectId===subjectId&&!a.selfAssessed);
+  const allAttempts=profile.attempts.filter(a=>a.subjectId===subjectId);
+  const attempts=allAttempts.filter(a=>!a.selfAssessed);
   const legacyIds=subjectId==='history'?Object.keys(profile.legacy?.history_ege_200_v1?.answers??{}).filter(id=>questions.some(q=>q.id===id)):[];
-  const answered=new Set([...attempts.map(a=>a.questionId),...legacyIds]).size;
+  const answered=new Set([...allAttempts.map(a=>a.questionId),...legacyIds]).size;
   return {answered,total:questions.filter(q=>q.subjectId===subjectId).length,attempts:attempts.length,correct:attempts.filter(a=>a.correct).length,accuracy:attempts.length?Math.round(100*attempts.filter(a=>a.correct).length/attempts.length):null};
 }
 export function activity(profile) {const days={};for(const a of profile.attempts)days[a.localDate]=(days[a.localDate]??0)+1;for(const d of Object.values(profile.lessons))if(d?.day)days[d.day]=(days[d.day]??0)+1;return days;}
