@@ -1,7 +1,8 @@
 import http from 'node:http';
 import fs from 'node:fs/promises';
 import path from 'node:path';
-const root = path.resolve(new URL('..', import.meta.url).pathname.replace(/^\/([A-Za-z]:)/,'$1'));
+import {fileURLToPath} from 'node:url';
+const root = path.resolve(fileURLToPath(new URL('..', import.meta.url)));
 const types={'.html':'text/html','.css':'text/css','.js':'text/javascript','.mjs':'text/javascript','.json':'application/json','.svg':'image/svg+xml'};
 http.createServer(async(req,res)=>{
   try {
