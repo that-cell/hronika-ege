@@ -1,5 +1,5 @@
 [build]
-  command = "node --test tests/core.test.mjs && node scripts/validate.mjs && node scripts/build.mjs"
+  command = "node --test tests/*.test.mjs && node scripts/validate.mjs && node scripts/build.mjs"
   publish = "dist"
 
 [build.environment]
