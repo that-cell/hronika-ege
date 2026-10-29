@@ -13,7 +13,7 @@ export function migrate(storage) {
   const profiles=[];
   const oldProfiles=parse('chronika_profiles_v1');
   if(Array.isArray(oldProfiles))for(const p of oldProfiles){if(!safeId(p.id)||typeof p.name!=='string'||profiles.some(x=>x.id===p.id))continue;const n=newProfile(p.name.slice(0,30),p.id);for(const base of ['history_ege_200_v1','chronika_daily_v1','hronika_map_v4_mastery']){const k=base+'__'+p.id;if(raw[k]!==undefined)n.legacy[base]=parse(k);}profiles.push(n);}
-  const unowned={};for(const [k,v]of Object.entries(raw)){if(!k.includes('__')&&!['chronika_profiles_v1','chronika_active_profile_v1','chronika_profile_legacy_claimed'].includes(k)||k.endsWith('__default'))unowned[k]=v;}
+  const unowned={};for(const [k,v]of Object.entries(raw)){if(!k.includes('__')&&!['chronika_profiles_v1','chronika_active_profile_v1','chronika_profile_legacy_claimed'].includes(k))unowned[k]=v;}
   if(Object.keys(unowned).length){const p=newProfile('Старые данные · без владельца','legacy-unassigned');p.legacy={unassignedRaw:unowned};for(const base of ['history_ege_200_v1','chronika_daily_v1','hronika_map_v4_mastery'])if(raw[base]!==undefined)p.legacy[base]=parse(base);profiles.push(p);}
   const defaultRaw=Object.fromEntries(Object.entries(raw).filter(([k])=>k.endsWith('__default')));
   if(Object.keys(defaultRaw).length){const p=newProfile('Старый неименованный профиль','legacy-default');p.legacy={unassignedRaw:defaultRaw};for(const base of ['history_ege_200_v1','chronika_daily_v1','hronika_map_v4_mastery'])if(raw[base+'__default']!==undefined)p.legacy[base]=parse(base+'__default');profiles.push(p);}
