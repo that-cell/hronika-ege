@@ -56,4 +56,4 @@ node scripts/validate.mjs
 
 Документы: [аудит](docs/AUDIT.md), [архитектура](docs/ARCHITECTURE.md), [дорожная карта](docs/ROADMAP.md), [текущее состояние и продолжение](docs/STATUS.md), [проверки](docs/VERIFICATION.md).
 
-Изменения находятся в ветке `feat/unified-learning-platform`. Сайт не опубликован, изменения не слиты в основную ветку.
+Новая платформа: https://trajectory-ege-that-cell.netlify.app. Изменения находятся в ветке `feat/unified-learning-platform`; Netlify автоматически публикует обновления этой ветки после успешных тестов. Старая версия на chipper-crisp-5460c4.netlify.app и её ветка `main` сохранены отдельно. Настройки описаны в [DEPLOYMENT.md](docs/DEPLOYMENT.md).
